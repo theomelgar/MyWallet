@@ -9,7 +9,7 @@ export default function TrackMain() {
             <Routes>
                 <Route path="/" element={<Login/>}/>
                 <Route path="/cadastro" element={<SignUp/>}/>
-                <Route path="/home" element={</>} />
+                <Route path="/home" />
                 <Route path="/nova-entrada" />
                 <Route path="/nova-saida" />
             </Routes>

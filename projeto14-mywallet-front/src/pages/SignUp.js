@@ -1,5 +1,4 @@
 import StyleLogin from "../components/StyleLogin"
-import logo from "../assets/img/logo.png"
 import { Link, useNavigate } from "react-router-dom"
 import { api } from "../services/auth"
 import { useState } from "react"
@@ -24,7 +23,7 @@ export default function SignUp() {
         };
         api
             .post(
-                `auth/sign-up`,
+                `cadastro`,
                 Login
             )
             .then(() => {
@@ -40,7 +39,7 @@ export default function SignUp() {
     }
     return (
         <StyleLogin>
-            <img src={logo} alt="TrackIt" />
+            <h1>MyWallet</h1>
             <form onSubmit={send}>
                 <input
                     data-test="email-input"
