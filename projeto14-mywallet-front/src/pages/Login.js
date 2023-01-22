@@ -1,17 +1,14 @@
-import logo from "../assets/img/logo.png"
 import StyleLogin from "../components/StyleLogin"
 import { Link, useNavigate } from "react-router-dom"
 import { useState, useContext } from "react"
 import Loading from "../components/Loading"
 import { api } from "../services/auth"
-import { InfoContext } from "../context/info"
 
 export default function LogIn() {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const [load, setLoad] = useState("Entrar")
     const [off, setOff] = useState(false)
-    const { setUserData } = useContext(InfoContext);
 
     const navigate = useNavigate()
 
@@ -24,12 +21,11 @@ export default function LogIn() {
         };
         api
             .post(
-                `auth/login`,
+                `/`,
                 Login
             )
             .then((response) => {
-                setUserData(response.data)
-                navigate("/hoje")
+                navigate("/home")
                 setLoad("Entrar")
                 setOff(false)
             }
@@ -45,7 +41,7 @@ export default function LogIn() {
 
     return (
         <StyleLogin>
-            <img src={logo} alt="TrackIt" />
+            <h1>MyWallet</h1>
             <form onSubmit={send}>
                 <label for="email" />
                 <input
@@ -75,7 +71,7 @@ export default function LogIn() {
                 }}>{load}</button>
             </form>
             <Link to="/cadastro" data-test="signup-link">
-                <p>Não tem uma conta? Cadastre-se!</p>
+                <p>Primeira vez? Cadastre-se!</p>
             </Link>
         </StyleLogin>
     )

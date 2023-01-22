@@ -49,9 +49,12 @@ a{
 	color: black;
 }
 p{
-	font-family: 'Lexend Deca';
+	font-family: 'Raleway';
 	font-style: normal;
 	font-weight: 400;
+}
+body{
+    background:#8C11BE;
 }
 button{
   cursor: pointer;
