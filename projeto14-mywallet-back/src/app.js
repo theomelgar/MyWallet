@@ -1,6 +1,7 @@
 import express from "express"
 import cors from "cors"
 import authRouter from "./routes/AuthRoutes.js"
+import operationsRouter from "./routes/OperationsRoutes.js"
 
 const app = express()
 app.use(express.json())
@@ -8,8 +9,8 @@ app.use(cors())
 
 const PORT = process.env.PORT
 
-//Auth routes
-app.use([ authRouter ])
+//routes
+app.use([ authRouter, operationsRouter ])
 
 // app.post("", async (req,res) => {
 //     try {
