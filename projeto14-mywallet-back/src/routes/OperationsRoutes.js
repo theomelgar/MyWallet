@@ -1,4 +1,4 @@
-import { income, outcome, register } from "../controller/Operations.js";
+import { deleteOperation, income, outcome, register, updateIncome, updateOutcome } from "../controller/Operations.js";
 import { Router } from "express";
 import { validateSchema } from "../middleware/validateSchema.js";
 import { operationSchema } from "../schemas/OperationSchema.js";
@@ -8,7 +8,10 @@ const operationsRouter = Router()
 
 operationsRouter.use(authValidation)
 operationsRouter.get("/home", register)
+operationsRouter.delete("/home/:id", deleteOperation)
 operationsRouter.post("/nova-entrada", validateSchema(operationSchema), income)
+operationsRouter.put("/nova-entrada/:id", validateSchema(operationSchema), updateIncome)
 operationsRouter.post("/nova-saida", validateSchema(operationSchema), outcome)
+operationsRouter.put("/nova-saida/:id", validateSchema(operationSchema), updateOutcome)
 
 export default operationsRouter
