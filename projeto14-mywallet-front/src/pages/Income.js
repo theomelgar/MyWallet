@@ -23,7 +23,7 @@ export default function Income(){
             }
         }
         const data = {
-            value: value,
+            value: value.replace(",", "."),
             description: description
         };
         api
