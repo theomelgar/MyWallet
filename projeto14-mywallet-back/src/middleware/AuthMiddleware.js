@@ -1,11 +1,11 @@
 import db from "../config/database.js";
 
 export async function authValidation(req, res, next) {
-    const { authorization } = req.headers
+    const { authorization, idUser } = req.headers
     const token = authorization?.replace("Bearer ", '')
-
+    const user = user?.replace("Bearer", '')
     if (!token) return res.status(422).send("Informe o token!")
-
+    
     try {
         const checkSession = await db.collection("sessions").findOne({ token })
 

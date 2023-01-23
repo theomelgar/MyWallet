@@ -6,22 +6,24 @@ import { api } from "../services/auth";
 import Operation from "../components/Operation";
 
 export default function Home() {
-    const { UserData } = useContext(InfoContext)
+    const { UserData, setUserData } = useContext(InfoContext)
     const token = UserData.token
     const [list, setList] = useState([])
     const [update, setUpdate] = useState(false) 
     const navigate = useNavigate()
     const signout = () => {
         localStorage.clear()
+        setUserData({})
         navigate('/')
     }
-
+    
     useEffect(() => {
         api.get(`/home`,
             { headers: { Authorization: `Bearer ${token}` } }
         )
             .then(res => {
                 setList(res.data)
+                console.log(res.data)
             })
             .catch(err => alert(err.response.data.message))
     }, [update, token])
@@ -33,7 +35,8 @@ export default function Home() {
     const outcome = () => {
         navigate('/nova-saida')
     }
-
+    let total = 0
+    list.map((s)=> total+=s.value)
     return (
         <HomeStyle>
             <NavStyle>
@@ -45,6 +48,7 @@ export default function Home() {
             <RegisterStyle>
                 {list.map((activity) => <Operation key={activity._id} activity={activity} />)}
             </RegisterStyle>
+            <p>{total}</p>
             <OperationsStyle>
                 <IncomeStyle onClick={income}>
                     <ion-icon name="add-circle-outline"></ion-icon>
