@@ -3,12 +3,14 @@ import { Link, useNavigate } from "react-router-dom"
 import { useState, useContext } from "react"
 import Loading from "../components/Loading"
 import { api } from "../services/auth"
+import { InfoContext } from "../context/info";
 
 export default function LogIn() {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const [load, setLoad] = useState("Entrar")
     const [off, setOff] = useState(false)
+    const { setUserData } = useContext(InfoContext)
 
     const navigate = useNavigate()
 
@@ -25,6 +27,8 @@ export default function LogIn() {
                 Login
             )
             .then((response) => {
+                console.log(response)
+                setUserData(response.data)
                 navigate("/home")
                 setLoad("Entrar")
                 setOff(false)
@@ -45,7 +49,6 @@ export default function LogIn() {
             <form onSubmit={send}>
                 <label for="email" />
                 <input
-                    data-test="email-input"
                     type="email"
                     id="emal"
                     placeholder="email"
@@ -56,7 +59,6 @@ export default function LogIn() {
                 />
                 <label for="password" />
                 <input
-                    data-test="password-input"
                     type="password"
                     id="password"
                     placeholder="senha"
@@ -65,12 +67,12 @@ export default function LogIn() {
                     disabled={off}
                     onChange={e => setPassword(e.target.value)}
                 />
-                <button data-test="login-btn" type="submit" onClick={() => {
+                <button type="submit" onClick={() => {
                     setLoad(Loading)
                     setOff(true)
                 }}>{load}</button>
             </form>
-            <Link to="/cadastro" data-test="signup-link">
+            <Link to="/cadastro">
                 <p>Primeira vez? Cadastre-se!</p>
             </Link>
         </StyleLogin>

@@ -7,7 +7,7 @@ import Loading from "../components/Loading"
 export default function SignUp() {
     const [name, setName] = useState()
     const [email, setEmail] = useState()
-    const [photo, setPhoto] = useState()
+    const [confirmPassword, setConfirmPassword] = useState()
     const [password, setPassword] = useState()
     const [load, setLoad] = useState("Cadastrar")
     const [off, setOff] = useState(false)
@@ -18,12 +18,12 @@ export default function SignUp() {
         const Login = {
             email: email,
             name: name,
-            image: photo,
-            password: password
+            password: password,
+            confirmPassword: confirmPassword
         };
         api
             .post(
-                `cadastro`,
+                `/cadastro`,
                 Login
             )
             .then(() => {
@@ -42,27 +42,6 @@ export default function SignUp() {
             <h1>MyWallet</h1>
             <form onSubmit={send}>
                 <input
-                    data-test="email-input"
-                    type="email"
-                    id="emal"
-                    disabled={off}
-                    placeholder="email"
-                    value={email}
-                    required
-                    onChange={e => setEmail(e.target.value)}
-                />
-                <input
-                    data-test="password-input"
-                    type="password"
-                    id="password"
-                    disabled={off}
-                    placeholder="senha"
-                    value={password}
-                    required
-                    onChange={e => setPassword(e.target.value)}
-                />
-                <input
-                data-test="user-name-input"
                     type="text"
                     id="name"
                     disabled={off}
@@ -72,21 +51,38 @@ export default function SignUp() {
                     onChange={e => setName(e.target.value)}
                 />
                 <input
-                data-test="user-image-input"
-                    type="url"
-                    id="photo"
+                    type="email"
+                    id="emal"
                     disabled={off}
-                    placeholder="foto"
-                    value={photo}
+                    placeholder="email"
+                    value={email}
                     required
-                    onChange={e => setPhoto(e.target.value)}
+                    onChange={e => setEmail(e.target.value)}
                 />
-                <button data-test="signup-btn" type="submit" onClick={() => {
+                <input
+                    type="password"
+                    id="password"
+                    disabled={off}
+                    placeholder="senha"
+                    value={password}
+                    required
+                    onChange={e => setPassword(e.target.value)}
+                />
+                <input
+                    type="text"
+                    id="confirmPassword"
+                    disabled={off}
+                    placeholder="confirme a senha"
+                    value={confirmPassword}
+                    required
+                    onChange={e => setConfirmPassword(e.target.value)}
+                />
+                <button type="submit" onClick={() => {
                     setLoad(Loading)
                     setOff(true)
                 }}>{load}</button>
             </form>
-            <Link to="/" data-test="login-link">
+            <Link to="/">
                 <p>Já tem uma conta? Faça login!</p>
             </Link>
         </StyleLogin>

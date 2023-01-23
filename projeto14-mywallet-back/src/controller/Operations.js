@@ -31,7 +31,7 @@ export async function outcome(req, res) {
     const operation = req.body
     const checkSession = res.locals.session
     try {
-        const time = dayjs().format("HH:mm:ss")
+        const time = dayjs().format("DD/MM")
         if (Number(operation.value) < 0) return res.sendStatus(422)
 
         await db.collection("register").insertOne({
@@ -67,7 +67,7 @@ export async function income(req, res) {
     const operation = req.body
     const checkSession = res.locals.session
     try {
-        const time = dayjs().format("HH:mm:ss")
+        const time = dayjs().format("DD/MM")
         if (isNaN(operation.value) || Number(operation.value) < 0) return res.sendStatus(400)
 
         await db.collection("register").insertOne({
