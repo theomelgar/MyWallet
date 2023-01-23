@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { api } from "../services/auth"
 import Loading from "../components/Loading"
 import { InfoContext } from "../context/info"
@@ -13,7 +13,7 @@ export default function Income(){
     const [load, setLoad] = useState("Atualizar entrada")
     const [off, setOff] = useState(false)
     const navigate = useNavigate()
-
+    const { id } = useParams();
     function send(e) {
         e.preventDefault(); // impede o redirecionamento
 
@@ -28,7 +28,7 @@ export default function Income(){
         };
         api
             .put(
-                `/editar-saida/${UserData._id}`, data,config
+                `/editar-saida/${id}`, data,config
             )
             .then(() => {
                 setLoad("Atualizar entrada")

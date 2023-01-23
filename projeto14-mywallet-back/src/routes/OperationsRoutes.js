@@ -10,8 +10,8 @@ operationsRouter.use(authValidation)
 operationsRouter.get("/home", register)
 operationsRouter.delete("/home/:id", deleteOperation)
 operationsRouter.post("/nova-entrada", validateSchema(operationSchema), income)
-operationsRouter.put("/nova-entrada/:id", validateSchema(operationSchema), updateIncome)
+operationsRouter.put("/editar-entrada/:id", validateSchema(operationSchema), updateIncome)
 operationsRouter.post("/nova-saida", validateSchema(operationSchema), outcome)
-operationsRouter.put("/nova-saida/:id", validateSchema(operationSchema), updateOutcome)
+operationsRouter.put("/editar-saida/:id", validateSchema(operationSchema), updateOutcome)
 
 export default operationsRouter

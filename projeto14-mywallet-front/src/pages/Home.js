@@ -50,7 +50,7 @@ export default function Home() {
             </NavStyle>
             <RegisterStyle>
                 {list?.length < 1 && <h2>Não há registros de entrada ou saída</h2>}
-                {list.map((activity) => <Operation key={activity._id} activity={activity} />)}
+                {list.map((activity) => <Operation setUpdate={setUpdate} update={update} key={activity._id} activity={activity} token={token}/>)}
                 {list?.length > 0 && (
                     <Balance switchColor={total >= 0}>
                         <p>SALDO</p> <span>{total.toFixed(2).replace(".", ",")}</span>
@@ -137,6 +137,7 @@ const IncomeStyle = styled.div`
     background: #A328D6;
     border-radius: 5px;
     position: relative;
+    cursor: pointer;
     ion-icon{
         font-size: 30px;
         position: absolute;
@@ -151,6 +152,7 @@ const IncomeStyle = styled.div`
     }
 `
 const OutcomeStyle = styled.div`
+    cursor: pointer;
     width: 155px;
     height: 114px;
     background: #A328D6;
