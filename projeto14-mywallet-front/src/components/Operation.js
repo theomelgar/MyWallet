@@ -71,6 +71,7 @@ const Description = styled.div`
 const ValueI = styled.div`
     font-size: 16px;
     position: absolute;
+    font-weight: 400;
     top: 0;
     right: 10%;
     line-height: 19px;
@@ -80,6 +81,7 @@ const ValueI = styled.div`
 
 const ValueO = styled.div`
     font-size: 16px;
+    font-weight: 400;
     position: absolute;
     top: 0;
     right:10%;
