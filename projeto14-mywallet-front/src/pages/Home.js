@@ -8,15 +8,19 @@ import Operation from "../components/Operation";
 export default function Home() {
     const { UserData, setUserData } = useContext(InfoContext)
     const token = UserData.token
+    const zero = 0;
     const [list, setList] = useState([])
-    const [update, setUpdate] = useState(false) 
+    const total = list.reduce((acc, cur) => {
+        return cur.type === "income" ? acc + parseFloat(cur.value) : acc - parseFloat(cur.value);
+    }, zero);
+    const [update, setUpdate] = useState(false)
     const navigate = useNavigate()
     const signout = () => {
         localStorage.clear()
         setUserData({})
         navigate('/')
     }
-    
+
     useEffect(() => {
         api.get(`/home`,
             { headers: { Authorization: `Bearer ${token}` } }
@@ -35,8 +39,7 @@ export default function Home() {
     const outcome = () => {
         navigate('/nova-saida')
     }
-    let total = 0
-    list.map((s)=> total+=s.value)
+
     return (
         <HomeStyle>
             <NavStyle>
@@ -46,9 +49,14 @@ export default function Home() {
                 </Exit>
             </NavStyle>
             <RegisterStyle>
+                {list?.length < 1 && <h2>Não há registros de entrada ou saída</h2>}
                 {list.map((activity) => <Operation key={activity._id} activity={activity} />)}
+                {list?.length > 0 && (
+                    <Balance switchColor={total >= 0}>
+                        <p>SALDO</p> <span>{total.toFixed(2).replace(".", ",")}</span>
+                    </Balance>)}
             </RegisterStyle>
-            <p>{total}</p>
+
             <OperationsStyle>
                 <IncomeStyle onClick={income}>
                     <ion-icon name="add-circle-outline"></ion-icon>
@@ -74,7 +82,9 @@ const HomeStyle = styled.div`
     color: white;
     gap: 20px;
 `
+
 const RegisterStyle = styled.div`
+    position: relative;
     width: 90%;
     height: 500px;
     margin: 0 auto;
@@ -83,8 +93,34 @@ const RegisterStyle = styled.div`
     overflow: scroll;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
+    
+    h2{
+        color: gray;
+        margin: auto;
+        font-size: 16px;
+    }
+`
+
+const Balance = styled.div`
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    bottom: 10px;
+    left: auto;
+    
+    p {
+        font-size: 25px;
+        line-height: 20px;
+        color: black;
+        font-weight: 700;
+    }
+    span {
+        color: ${(props) => (props.switchColor ? "#03AC00" : "#C70000")};
+        font-weight: 700;
+        font-size:18px;
+    }
 `
 
 const OperationsStyle = styled.div`
