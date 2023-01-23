@@ -1,4 +1,3 @@
-import joi from "joi"
 import bcrypt from "bcrypt"
 import { v4 as uuidV4 } from 'uuid'
 import db from "../config/database.js"
@@ -39,7 +38,7 @@ export async function signIn(req, res) {
 
         await db.collection("sessions").insertOne({ idUser: checkUser._id, token })
 
-        res.status(200).send({name: checkUser.name, email:checkUser.email, token:token})
+        res.status(200).send({name: checkUser.name, email:checkUser.email, token:token, idUser: checkUser._id})
 
     } catch (error) {
         res.status(500).send(error.message)

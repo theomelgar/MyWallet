@@ -33,7 +33,6 @@ export default function Income(){
             .then(() => {
                 setLoad("Salvar saída")
                 navigate("/home")
-                setLoad("Salvar saída")
                 setOff(false)
             }
             )

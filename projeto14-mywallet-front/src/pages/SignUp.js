@@ -69,7 +69,7 @@ export default function SignUp() {
                     onChange={e => setPassword(e.target.value)}
                 />
                 <input
-                    type="text"
+                    type="password"
                     id="confirmPassword"
                     disabled={off}
                     placeholder="confirme a senha"

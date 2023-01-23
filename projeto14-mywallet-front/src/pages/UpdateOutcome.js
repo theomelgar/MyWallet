@@ -10,7 +10,7 @@ export default function Income(){
     const token = UserData.token
     const [value, setValue] = useState()
     const [description, setDescription] = useState()
-    const [load, setLoad] = useState("Salvar entrada")
+    const [load, setLoad] = useState("Atualizar entrada")
     const [off, setOff] = useState(false)
     const navigate = useNavigate()
 
@@ -27,18 +27,18 @@ export default function Income(){
             description: description
         };
         api
-            .post(
-                `/nova-entrada`, data,config
+            .put(
+                `/editar-saida/${UserData._id}`, data,config
             )
             .then(() => {
+                setLoad("Atualizar entrada")
                 navigate("/home")
-                setLoad("Salvar entrada")
                 setOff(false)
             }
             )
             .catch((error) => {
                 alert(error.response.data.message)
-                setLoad("Salvar entrada")
+                setLoad("Atualizar entrada")
                 setOff(false)
             }
             );
@@ -47,7 +47,7 @@ export default function Income(){
     return(
         <StyleRegister>
             <h1>
-                Nova entrada
+                Editar entrada
             </h1>
             <form onSubmit={send}>
             <input

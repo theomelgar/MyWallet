@@ -3,8 +3,9 @@ import { ObjectId } from "mongodb"
 import db from "../config/database.js"
 
 export async function register(req, res) {
+    const checkSession = res.locals.session
     try {
-        const data = await db.collection("register").find().toArray()
+        const data = await db.collection("register").find({idUser: checkSession.idUser}).toArray()
 
         return res.send(data.reverse())
 
